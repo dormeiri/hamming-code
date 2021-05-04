@@ -1,0 +1,29 @@
+import argparse
+
+from src.hamming_code import fix, detect, decode, encode
+
+COMMANDS = {
+    "encode": encode,
+    "decode": decode,
+    "detect": detect,
+    "fix": fix
+}
+
+
+def bits_str(data):
+    if any(bit not in ["1", "0"] for bit in data):
+        raise ValueError
+    return list(map(int, data))
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("command", choices=COMMANDS)
+    parser.add_argument("data", type=bits_str)
+    args = parser.parse_args()
+    result = COMMANDS[args.command](args.data)
+    print(result)
+
+
+if __name__ == "__main__":
+    main()
