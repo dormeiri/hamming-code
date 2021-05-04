@@ -10,16 +10,16 @@ COMMANDS = {
 }
 
 
-def bits_str(data):
-    if any(bit not in ["1", "0"] for bit in data):
+def data(s):
+    if any(ch not in ["1", "0"] for ch in s):
         raise ValueError
-    return list(map(int, data))
+    return list(map(int, s))
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("command", choices=COMMANDS)
-    parser.add_argument("data", type=bits_str)
+    parser.add_argument("data", type=data)
     args = parser.parse_args()
     result = COMMANDS[args.command](args.data)
     print(result)
